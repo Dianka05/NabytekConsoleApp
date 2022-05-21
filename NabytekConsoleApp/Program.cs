@@ -6,26 +6,26 @@ namespace NabytekConsoleApp
 {
     class Program
     {
-        static Mebels mebels = new Mebels();
-        static NabytekStr[] nabytek = new NabytekStr[10];
+        static Mebels mebels = new Mebels(); //vytvaři instanci třidy Mebels
+        static NabytekStr[] nabytek = new NabytekStr[10]; //Vytvaři strukturu pro uložení informaci
         static void Main(string[] args)
         {
             string varianta, typ, material, barva;
             int x, y;
-            bool nextNb = true;
+            bool nextNb = true; 
 
-            int[] indColor = { 15, 12, 10, 14, 9, 0, 7, 5 };
+            int[] indColor = { 15, 12, 10, 14, 9, 0, 7, 5 }; //index barev třidy Console
 
             while (nextNb)
             {
                 Console.Clear();
-                for (int i = 0; i < mebels.Varianta.Length; i++)
+                for (int i = 0; i < mebels.Varianta.Length; i++)//Vypiše varianty nabytku
                 {
                     Console.WriteLine($"{mebels.Varianta[i]} = {i}");
                 }
                 varianta = Console.ReadLine();
 
-                switch (int.Parse(varianta))
+                switch (int.Parse(varianta))//Vybere nabytek z 5
                 {
                     case 0://Stul
                         for (int i = 0; i < 3; i++)
@@ -364,7 +364,7 @@ namespace NabytekConsoleApp
                         Console.WriteLine("Zadali jste nespravne cislo");
                         break;
                 }
-
+                
                 Console.WriteLine("Chcete pokračovat - stisknete Enter\npro ukončení stisknite libovolnou klavesu\nESC pro vypočet kolik se vejde židle do pokoje s určitymi rozměry" +
                     "\nTAB - Pro otočení nabytku");
                 ConsoleKeyInfo consoleKey = Console.ReadKey();
@@ -397,7 +397,7 @@ namespace NabytekConsoleApp
                 }
             }
         }
-        public static string KolikSeVejdeZidleDoPokoje(int rozmerX, int rozmerY)
+        public static string KolikSeVejdeZidleDoPokoje(int rozmerX, int rozmerY)//Metoda pro výpočet kolik se vejde židli s rozměry 20x20 do pokoju s určitymi rozměry
         {
             int rozmerZidleY = (int)mebels.ZidleKresloSirkaVyska[1];
             int rozmerZidleX = (int)mebels.ZidleKresloSirkaVyska[0];
@@ -406,7 +406,7 @@ namespace NabytekConsoleApp
 
             return $"Do pokoju s rozmery {rozmerX}x{rozmerY} se veslo {pocetZidle} zidle";
         }
-        public static string CreateNabytek(int x, int y, string varianta, string typ, string barva, string material, double sirka, double vyska)
+        public static string CreateNabytek(int x, int y, string varianta, string typ, string barva, string material, double sirka, double vyska)//Vytvaři nabytek a zavádí ho do pole structury nabyytek
         {
             nabytek[mebels.IsObjCreate].sirka = sirka;
             nabytek[mebels.IsObjCreate].vyska = vyska;
@@ -423,7 +423,7 @@ namespace NabytekConsoleApp
 
             return $"Varianta: {varianta} ID: {mebels.IsObjCreate - 1} \nTyp: {typ}\nMaterial: {material}\nBarva: {barva}\nRozmer: {sirka}x{vyska}\nX: {x}\nY: {y}";
         }
-        public static bool JeLiObsazenoMisto(int x, int y)
+        public static bool JeLiObsazenoMisto(int x, int y)//Ověří zda jsou pozice pro nový nabytek obsazené nebo ne
         {
             bool isEmpty = true;
             for (int i = 0; i < mebels.IsObjCreate; i++)
@@ -446,7 +446,7 @@ namespace NabytekConsoleApp
             }
             return isEmpty;
         }
-        public static string OtocitNabytek(int ID /*double sirka, double vyska*/)
+        public static string OtocitNabytek(int ID)//Otoči nabytek podle ID, které je napsano při vytvaření nabytku
         {
 
             Nabytek mebel = new Nabytek(mebels.IsObjCreate, nabytek[ID].varianta, nabytek[ID].sirka, nabytek[ID].vyska);
@@ -456,7 +456,7 @@ namespace NabytekConsoleApp
 
             return $"Varianta: {nabytek[ID].varianta}\nRozmer: {nabytek[ID].vyska}x{nabytek[ID].sirka} \n-upraveno na\n";
         }
-        struct NabytekStr
+        struct NabytekStr//struktura do které se ukládá vytvořeny nabytek
         {
             public string varianta;
             public string typ;
